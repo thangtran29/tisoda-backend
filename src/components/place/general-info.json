@@ -1,0 +1,52 @@
+{
+  "collectionName": "components_place_general_infos",
+  "info": {
+    "displayName": "General Info",
+    "icon": "information",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "media": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "highlight": {
+      "type": "blocks"
+    },
+    "brief_intro": {
+      "type": "blocks"
+    },
+    "address": {
+      "type": "component",
+      "repeatable": false,
+      "component": "general.address"
+    },
+    "rating": {
+      "type": "component",
+      "repeatable": false,
+      "component": "general.rating"
+    },
+    "opening_time": {
+      "type": "component",
+      "repeatable": true,
+      "component": "place.opening-time"
+    },
+    "payment_methods": {
+      "type": "enumeration",
+      "enum": [
+        "Thẻ tín dụng",
+        "Chuyển khoản",
+        "Tiền mặt",
+        "Ví điện tử"
+      ]
+    }
+  }
+}

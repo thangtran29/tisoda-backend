@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_homepage_promotions",
+  "info": {
+    "displayName": "Promotion",
+    "icon": "priceTag"
+  },
+  "options": {},
+  "attributes": {
+    "discount": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_homepage_reasons",
+  "info": {
+    "displayName": "Reason",
+    "icon": "question"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

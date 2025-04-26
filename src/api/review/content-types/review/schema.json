@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reviews",
+  "info": {
+    "singularName": "review",
+    "pluralName": "reviews",
+    "displayName": "Review"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "reviewer_name": {
+      "type": "string"
+    },
+    "content": {
+      "type": "blocks"
+    },
+    "score": {
+      "type": "decimal",
+      "max": 5,
+      "min": 1
+    },
+    "place": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::place.place",
+      "inversedBy": "reviews"
+    }
+  }
+}
