@@ -408,7 +408,6 @@ export interface ApiAppointmentAppointment extends Struct.CollectionTypeSchema {
     >;
     place: Schema.Attribute.Relation<'oneToOne', 'api::place.place'>;
     publishedAt: Schema.Attribute.DateTime;
-    service: Schema.Attribute.Relation<'oneToOne', 'api::service.service'>;
     status_item: Schema.Attribute.Enumeration<
       ['\u0110\u00E3 x\u00E1c nh\u1EADn', '\u0110\u00E3 h\u1EE7y']
     >;
@@ -457,6 +456,7 @@ export interface ApiCategoryPlaceCategoryPlace
 export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
   collectionName: 'homepages';
   info: {
+    description: '';
     displayName: 'Homepage';
     pluralName: 'homepages';
     singularName: 'homepage';
@@ -478,10 +478,41 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
       'homepage.main-category',
       false
     >;
-    metadata: Schema.Attribute.Component<'general.metadata', true>;
-    promotions: Schema.Attribute.Component<'homepage.promotion', true>;
+    metadata: Schema.Attribute.Component<'general.metadata', false>;
+    places: Schema.Attribute.Relation<'oneToMany', 'api::place.place'>;
+    promotionTitle: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    reasons: Schema.Attribute.Component<'homepage.reason', false>;
+    reasons: Schema.Attribute.Component<'homepage.reason', true>;
+    reasonTitle: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPaymentMethodPaymentMethod
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'payment_methods';
+  info: {
+    displayName: 'Payment method';
+    pluralName: 'payment-methods';
+    singularName: 'payment-method';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::payment-method.payment-method'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -517,89 +548,15 @@ export interface ApiPlacePlace extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     metadata: Schema.Attribute.Component<'general.metadata', false>;
     name: Schema.Attribute.String;
+    payment_methods: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::payment-method.payment-method'
+    >;
     publishedAt: Schema.Attribute.DateTime;
-    reviews: Schema.Attribute.Relation<'oneToMany', 'api::review.review'>;
-    services: Schema.Attribute.Relation<'oneToMany', 'api::service.service'>;
+    quantity_sold: Schema.Attribute.Integer;
+    reviews: Schema.Attribute.Component<'place.review', true>;
+    services: Schema.Attribute.Component<'place.services', true>;
     slug: Schema.Attribute.UID;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiReviewReview extends Struct.CollectionTypeSchema {
-  collectionName: 'reviews';
-  info: {
-    displayName: 'Review';
-    pluralName: 'reviews';
-    singularName: 'review';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    content: Schema.Attribute.Blocks;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::review.review'
-    > &
-      Schema.Attribute.Private;
-    place: Schema.Attribute.Relation<'manyToOne', 'api::place.place'>;
-    publishedAt: Schema.Attribute.DateTime;
-    reviewer_name: Schema.Attribute.String;
-    score: Schema.Attribute.Decimal &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 5;
-          min: 1;
-        },
-        number
-      >;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiServiceService extends Struct.CollectionTypeSchema {
-  collectionName: 'services';
-  info: {
-    displayName: 'Service';
-    pluralName: 'services';
-    singularName: 'service';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    appointment: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::appointment.appointment'
-    >;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.Blocks;
-    duration: Schema.Attribute.Integer;
-    gallery: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::service.service'
-    > &
-      Schema.Attribute.Private;
-    place: Schema.Attribute.Relation<'manyToOne', 'api::place.place'>;
-    price: Schema.Attribute.BigInteger;
-    publishedAt: Schema.Attribute.DateTime;
-    service_group_name: Schema.Attribute.String;
-    service_name: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -630,8 +587,12 @@ export interface ApiSettingSetting extends Struct.SingleTypeSchema {
     > &
       Schema.Attribute.Private;
     logo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    logo_mobile: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
     publishedAt: Schema.Attribute.DateTime;
     siteName: Schema.Attribute.String;
+    social: Schema.Attribute.Component<'general.social', true>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1150,9 +1111,8 @@ declare module '@strapi/strapi' {
       'api::appointment.appointment': ApiAppointmentAppointment;
       'api::category-place.category-place': ApiCategoryPlaceCategoryPlace;
       'api::homepage.homepage': ApiHomepageHomepage;
+      'api::payment-method.payment-method': ApiPaymentMethodPaymentMethod;
       'api::place.place': ApiPlacePlace;
-      'api::review.review': ApiReviewReview;
-      'api::service.service': ApiServiceService;
       'api::setting.setting': ApiSettingSetting;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

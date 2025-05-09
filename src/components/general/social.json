@@ -1,19 +1,18 @@
 {
-  "collectionName": "components_homepage_reasons",
+  "collectionName": "components_general_socials",
   "info": {
-    "displayName": "Reason",
-    "icon": "question",
-    "description": ""
+    "displayName": "social",
+    "icon": "user"
   },
   "options": {},
   "attributes": {
-    "title": {
+    "name": {
       "type": "string"
     },
-    "description": {
-      "type": "text"
+    "url": {
+      "type": "string"
     },
-    "thumbnail": {
+    "media": {
       "allowedTypes": [
         "images",
         "files",

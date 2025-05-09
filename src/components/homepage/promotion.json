@@ -2,15 +2,18 @@
   "collectionName": "components_homepage_promotions",
   "info": {
     "displayName": "Promotion",
-    "icon": "priceTag"
+    "icon": "priceTag",
+    "description": ""
   },
   "options": {},
   "attributes": {
-    "discount": {
+    "title": {
       "type": "string"
     },
-    "description": {
-      "type": "text"
+    "places": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::place.place"
     }
   }
 }

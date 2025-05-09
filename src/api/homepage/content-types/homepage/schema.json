@@ -4,7 +4,8 @@
   "info": {
     "singularName": "homepage",
     "pluralName": "homepages",
-    "displayName": "Homepage"
+    "displayName": "Homepage",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -15,20 +16,26 @@
       "repeatable": false,
       "component": "homepage.main-category"
     },
-    "promotions": {
+    "metadata": {
       "type": "component",
-      "repeatable": true,
-      "component": "homepage.promotion"
+      "repeatable": false,
+      "component": "general.metadata"
+    },
+    "promotionTitle": {
+      "type": "string"
+    },
+    "places": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::place.place"
+    },
+    "reasonTitle": {
+      "type": "string"
     },
     "reasons": {
       "type": "component",
-      "repeatable": false,
-      "component": "homepage.reason"
-    },
-    "metadata": {
-      "type": "component",
       "repeatable": true,
-      "component": "general.metadata"
+      "component": "homepage.reason"
     }
   }
 }

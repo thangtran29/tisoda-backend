@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_place_services",
+  "info": {
+    "displayName": "Service",
+    "icon": "bulletList",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "service_group_name": {
+      "type": "string"
+    },
+    "service_name": {
+      "type": "string"
+    },
+    "duration": {
+      "type": "integer"
+    },
+    "price": {
+      "type": "biginteger"
+    },
+    "gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "description": {
+      "type": "blocks"
+    }
+  }
+}

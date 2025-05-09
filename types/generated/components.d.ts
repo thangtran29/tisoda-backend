@@ -110,6 +110,19 @@ export interface GeneralRating extends Struct.ComponentSchema {
   };
 }
 
+export interface GeneralSocial extends Struct.ComponentSchema {
+  collectionName: 'components_general_socials';
+  info: {
+    displayName: 'social';
+    icon: 'user';
+  };
+  attributes: {
+    media: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    name: Schema.Attribute.String;
+    url: Schema.Attribute.String;
+  };
+}
+
 export interface HomepageMainCategory extends Struct.ComponentSchema {
   collectionName: 'components_homepage_main_categories';
   info: {
@@ -142,23 +155,26 @@ export interface HomepageMainCategoryItem extends Struct.ComponentSchema {
 export interface HomepagePromotion extends Struct.ComponentSchema {
   collectionName: 'components_homepage_promotions';
   info: {
+    description: '';
     displayName: 'Promotion';
     icon: 'priceTag';
   };
   attributes: {
-    description: Schema.Attribute.Text;
-    discount: Schema.Attribute.String;
+    places: Schema.Attribute.Relation<'oneToMany', 'api::place.place'>;
+    title: Schema.Attribute.String;
   };
 }
 
 export interface HomepageReason extends Struct.ComponentSchema {
   collectionName: 'components_homepage_reasons';
   info: {
+    description: '';
     displayName: 'Reason';
     icon: 'question';
   };
   attributes: {
     description: Schema.Attribute.Text;
+    thumbnail: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     title: Schema.Attribute.String;
   };
 }
@@ -179,14 +195,6 @@ export interface PlaceGeneralInfo extends Struct.ComponentSchema {
       true
     >;
     opening_time: Schema.Attribute.Component<'place.opening-time', true>;
-    payment_methods: Schema.Attribute.Enumeration<
-      [
-        'Th\u1EBB t\u00EDn d\u1EE5ng',
-        'Chuy\u1EC3n kho\u1EA3n',
-        'Ti\u1EC1n m\u1EB7t',
-        'V\u00ED \u0111i\u1EC7n t\u1EED',
-      ]
-    >;
     rating: Schema.Attribute.Component<'general.rating', false>;
   };
 }
@@ -215,6 +223,39 @@ export interface PlaceOpeningTime extends Struct.ComponentSchema {
   };
 }
 
+export interface PlaceReview extends Struct.ComponentSchema {
+  collectionName: 'components_place_reviews';
+  info: {
+    displayName: 'Review';
+    icon: 'seed';
+  };
+  attributes: {
+    content: Schema.Attribute.Blocks;
+    reviewer_name: Schema.Attribute.String;
+    score: Schema.Attribute.Decimal;
+  };
+}
+
+export interface PlaceServices extends Struct.ComponentSchema {
+  collectionName: 'components_place_services';
+  info: {
+    description: '';
+    displayName: 'Service';
+    icon: 'bulletList';
+  };
+  attributes: {
+    description: Schema.Attribute.Blocks;
+    duration: Schema.Attribute.Integer;
+    gallery: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    price: Schema.Attribute.BigInteger;
+    service_group_name: Schema.Attribute.String;
+    service_name: Schema.Attribute.String;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -225,12 +266,15 @@ declare module '@strapi/strapi' {
       'general.metadata': GeneralMetadata;
       'general.payment-method': GeneralPaymentMethod;
       'general.rating': GeneralRating;
+      'general.social': GeneralSocial;
       'homepage.main-category': HomepageMainCategory;
       'homepage.main-category-item': HomepageMainCategoryItem;
       'homepage.promotion': HomepagePromotion;
       'homepage.reason': HomepageReason;
       'place.general-info': PlaceGeneralInfo;
       'place.opening-time': PlaceOpeningTime;
+      'place.review': PlaceReview;
+      'place.services': PlaceServices;
     }
   }
 }

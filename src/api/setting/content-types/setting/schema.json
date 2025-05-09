@@ -32,6 +32,22 @@
       "type": "component",
       "repeatable": false,
       "component": "general.contact-info"
+    },
+    "logo_mobile": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "social": {
+      "type": "component",
+      "repeatable": true,
+      "component": "general.social"
     }
   }
 }

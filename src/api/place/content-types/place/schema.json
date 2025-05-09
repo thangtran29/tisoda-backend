@@ -17,12 +17,6 @@
     "slug": {
       "type": "uid"
     },
-    "reviews": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::review.review",
-      "mappedBy": "place"
-    },
     "metadata": {
       "type": "component",
       "repeatable": false,
@@ -34,12 +28,6 @@
       "target": "api::category-place.category-place",
       "mappedBy": "places"
     },
-    "services": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::service.service",
-      "mappedBy": "place"
-    },
     "general_info": {
       "type": "component",
       "repeatable": false,
@@ -50,6 +38,24 @@
       "relation": "oneToOne",
       "target": "api::appointment.appointment",
       "mappedBy": "place"
+    },
+    "quantity_sold": {
+      "type": "integer"
+    },
+    "services": {
+      "type": "component",
+      "repeatable": true,
+      "component": "place.services"
+    },
+    "reviews": {
+      "type": "component",
+      "repeatable": true,
+      "component": "place.review"
+    },
+    "payment_methods": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::payment-method.payment-method"
     }
   }
 }

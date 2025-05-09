@@ -38,15 +38,6 @@
       "type": "component",
       "repeatable": true,
       "component": "place.opening-time"
-    },
-    "payment_methods": {
-      "type": "enumeration",
-      "enum": [
-        "Thẻ tín dụng",
-        "Chuyển khoản",
-        "Tiền mặt",
-        "Ví điện tử"
-      ]
     }
   }
 }

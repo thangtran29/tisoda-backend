@@ -17,12 +17,6 @@
       "target": "api::place.place",
       "inversedBy": "appointment"
     },
-    "service": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::service.service",
-      "inversedBy": "appointment"
-    },
     "status_item": {
       "type": "enumeration",
       "enum": [
